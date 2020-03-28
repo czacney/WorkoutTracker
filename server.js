@@ -11,7 +11,7 @@ const app = express();
 
 app.use(logger("dev"));
 
-app.use(express.urlencoded({ extended:true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
@@ -19,5 +19,23 @@ app.use(express.static("public"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname + "index.html"))
+    res.sendFile(path.join(__dirname + "index.html"));
 })
+
+app.get("/api/workouts", (req, res) => {
+    db.Workout.find({}, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(data)
+        }
+    })
+})
+
+app.post("/api/workouts");
+
+app.put("/api/workouts:id");
+
+app.listen(PORT, () => {
+    console.log("App running on port " + PORT + "!");
+});
