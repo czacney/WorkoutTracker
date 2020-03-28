@@ -22,6 +22,14 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "index.html"));
 })
 
+app.get("/exercise", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/exercise.html"));
+  });
+
+app.get("/stats", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/stats.html"));
+  });
+
 app.get("/api/workouts", (req, res) => {
     db.Workout.find({}, function (err, data) {
         if (err) {
@@ -32,9 +40,24 @@ app.get("/api/workouts", (req, res) => {
     })
 })
 
-app.post("/api/workouts");
+app.post("/api/workouts", (req, res) => {
+    db.Workout.find({}, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(data)
+        }
+    });
 
-app.put("/api/workouts:id");
+app.put("/api/workouts:id", (req, res) => {
+    db.Workout.find({}, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(data)
+        }
+    });
+});
 
 app.listen(PORT, () => {
     console.log("App running on port " + PORT + "!");
