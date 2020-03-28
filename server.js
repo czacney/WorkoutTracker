@@ -24,11 +24,11 @@ app.get("/", (req, res) => {
 
 app.get("/exercise", (req, res) => {
     res.sendFile(path.join(__dirname, "public/exercise.html"));
-  });
+});
 
 app.get("/stats", (req, res) => {
     res.sendFile(path.join(__dirname, "public/stats.html"));
-  });
+});
 
 app.get("/api/workouts", (req, res) => {
     db.Workout.find({}, function (err, data) {
@@ -49,16 +49,17 @@ app.post("/api/workouts", (req, res) => {
         }
     });
 
-app.put("/api/workouts:id", (req, res) => {
-    db.Workout.find({}, function (err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(data)
-        }
+    app.put("/api/workouts:id", (req, res) => {
+        db.Workout.find({}, function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json(data)
+            }
+        });
     });
-});
 
-app.listen(PORT, () => {
-    console.log("App running on port " + PORT + "!");
+    app.listen(PORT, () => {
+        console.log("App running on port " + PORT + "!");
+    });
 });
